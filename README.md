@@ -49,11 +49,11 @@ Open your browser and go to localhost:
     ```
 You can send various commands to the connected bots. The bot running on your ESP32 is "BOT-1060024". Make sure to type/copy the commands exactly as shown below, anything else will be ignored by the bot. You can press TAB when input field of the chat interface is selected to paste the "BOT-1060024: " prefix.
 
-Run the following command to turn the built-in LED of the ESP32 on
+Run the following command to turn on the built-in LED of the ESP32
 ```
 BOT-1060024: led:aan
 ```
-Run the following command to turn the built-in LED of the ESP32 off
+Run the following command to turn off the built-in LED of the ESP32
 ```
 BOT-1060024: led:uit
 ```
