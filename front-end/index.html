@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chat App</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color:#404040;text-align:center">
+    <div class="chat-box">
+        <div class="chat-header">
+            <h3>MQTT Chat App</h3>
+        </div>
+        <div class="chat-messages">
+			<ul id="messages"></ul>
+		</div>
+        <div class="chat-input">
+            <div class="command-info">Druk op tab voor sneltoets om bot aan te roepen</div>
+            <input id="input-field" type="text" placeholder="Type your message...">
+			<button id="send-button">Enter</button>
+        </div>
+    </div>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
