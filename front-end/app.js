@@ -1,5 +1,4 @@
 const url = "wss://netwerkenbasis.com:8884";
-// const url = "https://localhost:1884";
 
 //random client ID aanmaken
 const clientId = 'user-' + Math.random().toString(16).substr(2, 7);
@@ -28,26 +27,24 @@ client.on("connect", () => {
 	});
 });
 
+//checken of clientID voldoet aan format van mogelijke IDs
 function isValidClientId(clientId) {
-    // Regular expressions to match the specified formats
     const botRegex = /^BOT-\w{7}$/;
     const userRegex = /^user-\w{7}$/;
     const studentRegex = /^student-\w{4}$/;
 
-    // Check if the clientId matches any of the regular expressions
     return botRegex.test(clientId) || userRegex.test(clientId) || studentRegex.test(clientId);
 }
 
 //eventhandler voor wanneer berichten worden ontvangen
 client.on('message', function (topic, message) {
-    var otherClientId = message.toString().substring(0, 11); // Extracting potential client IDs
+    var otherClientId = message.toString().substring(0, 11);
     var receivedMessage = message.toString().substring(11);
 
-    // Check if otherClientId matches any of the specified formats
     if (isValidClientId(otherClientId)) {
-        appendMessage(otherClientId, receivedMessage); // If valid, append with the extracted client ID
+        appendMessage(otherClientId, receivedMessage);
     } else {
-        appendMessage("System", otherClientId + receivedMessage); // If not valid, use "System" as client ID
+        appendMessage("System", otherClientId + receivedMessage);
     }
 });
 
@@ -72,15 +69,15 @@ function send() {
     }
 }
 
-// const input = document.getElementById('input-field');
-
+//functie voor sneltoets om bot prefix te plakken
 select_input.addEventListener('keydown', function(event) {
     if (event.key === 'Tab') {
-        event.preventDefault(); // Prevent default tab behavior
-        insertTextAtCursor(select_input, 'BOT-1060024: '); // Insert text at cursor position
+        event.preventDefault();
+        insertTextAtCursor(select_input, 'BOT-1060024: ');
     }
 });
 
+//functie om tekst te plakken in input field
 function insertTextAtCursor(select_input, text) {
     const start = select_input.selectionStart;
     const end = select_input.selectionEnd;
@@ -90,15 +87,13 @@ function insertTextAtCursor(select_input, text) {
 
     select_input.value = textBefore + text + textAfter;
 
-    // Move the cursor to the end of the inserted text
     select_input.selectionStart = select_input.selectionEnd = start + text.length;
 }
 
 //functie om berichten aan UI toe te voegen
 function appendMessage(clientId, messageText) {
-    // Check if the client ID matches the specified format
+    //checken of clientID voldoet aan format
     if (isValidBotClientId(clientId)) {
-        // If the client ID matches, don't append the message
         return;
     }
 
@@ -119,7 +114,7 @@ function appendMessage(clientId, messageText) {
     messages.appendChild(messageContainer);
 }
 
-// Function to check if a client ID matches the specified format
+//checken of clientId voldoet aan format van bot ID
 function isValidBotClientId(clientId) {
     const botRegex = /^BOT-\d{7}$/;
     return botRegex.test(clientId);
