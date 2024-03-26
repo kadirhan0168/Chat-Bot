@@ -17,6 +17,7 @@ const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 0;
 const int   daylightOffset_sec = 3600;
 
+//verbind met wifi
 void wifiConnect() {
   WiFi.begin(ssid, pass);
   Serial.println("\nConnecting");
@@ -31,6 +32,7 @@ void wifiConnect() {
   Serial.println(WiFi.localIP());
 }
 
+//mqtt callback voor binnenkomende berichten
 void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
@@ -44,10 +46,13 @@ void callback(char* topic, byte* message, unsigned int length) {
   
   Serial.println();
 
+  //checken of bericht bedoeld is voor deze client
   if (receivedMessage.substring(0,11) == MQTT_CLIENT_ID) {
+    //temperatuur en vochtigheid uitlezen
     float t = dht.readTemperature();
     float h = dht.readHumidity();
 
+    //chat commands verwerken
     if (receivedMessage.substring(13) == "led:uit") {
       digitalWrite(led, LOW);
       client.publish("chat/message", "LED is uit.");
@@ -70,25 +75,23 @@ void callback(char* topic, byte* message, unsigned int length) {
   }
 }
 
+//opnieuw verbinding maken met mqtt broker als verbinding wegvalt
 void reconnect() {
-  // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
-    // Attempt to connect
     if (client.connect(MQTT_CLIENT_ID, MQTT_USER, MQTT_PASS)) {
       Serial.println("connected");
-      // Subscribe
       client.subscribe("chat/message");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
-      // Wait 5 seconds before retrying
       delay(5000);
     }
   }
 }
 
+//mqtt setup
 void mqtt() {
   client.setServer(MQTT_HOST, MQTT_PORT);
 
