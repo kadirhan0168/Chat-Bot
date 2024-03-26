@@ -14,6 +14,11 @@
 - Jumper wires
 - Micro USB cable
 
+## Required Arduino libraries
+Install the following libraries in Arduino IDE:
+- PubSubClient.h
+- time.h
+
 ## Preparation
 1. Connect the OUT pin of the DHT22 sensor to [GPI04](https://www.upesy.com/cdn/shop/articles/doc-esp32-pinout-reference-wroom-devkit_9db79068-c59c-4142-91f0-bb361d3b7dac.jpg?v=1706553444) of the ESP32
 2. Connect the VCC pin of the DHT22 sensor to 5V output of the ESP32
@@ -42,7 +47,7 @@ Open your browser and go to localhost:
     ```
     https://localhost
     ```
-You can send various commands to the connected bots. The bot running on your ESP32 is "BOT-1060024". Make sure to type/copy the commands exactly as shown below, anything else will be ignored by the bot.
+You can send various commands to the connected bots. The bot running on your ESP32 is "BOT-1060024". Make sure to type/copy the commands exactly as shown below, anything else will be ignored by the bot. You can press TAB when input field of the chat interface is selected to paste the "BOT-1060024: " prefix.
 
 Run the following command to turn the built-in LED of the ESP32 on
 ```
